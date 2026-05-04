@@ -35,15 +35,17 @@ def like_item():
     if not data or 'id' not in data:
         return jsonify({"error": "Λείπει το id"}), 400  
     item_id = data['id']
+    liked = data.get("liked", False)
     
     try:
-        # +1 likes
-        result = mongo.db.items.update_one({"_id": ObjectId(item_id)}, {"$inc": {"likes": 1}})
+        update = -1 if liked else 1
+        result = mongo.db.items.update_one({"_id": ObjectId(item_id)}, {"$inc": {"likes": update}})
+        action = "L" if update == -1 else "Unl"
         if result.modified_count == 1:
-            return jsonify({"success": True, "message": "Liked"}), 200
+            return jsonify({"success": True, "message": action + "iked"}), 200
         else:
             return jsonify({"error": "Το αντικείμενο δεν βρέθηκε"}), 404
-             
+        
     except Exception as e:
         return jsonify({"error": "Μη έγκυρο ID αντικειμένου"}), 400
 

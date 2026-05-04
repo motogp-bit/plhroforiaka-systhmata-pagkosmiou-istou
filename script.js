@@ -65,19 +65,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
     // 3D Coverflow Slideshow
-    const slides = document.querySelectorAll('.slide');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
+    function initSlideshow() {
+        const slides = document.querySelectorAll('#popular-slideshow .slide');
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
 
-    if (slides.length > 0) {
+        if (slides.length === 0) return;
+
         let currentIndex = 0;
         const totalSlides = slides.length;
 
         function updateSlides() {
             slides.forEach((slide, i) => {
-                // Reset slide classes
                 slide.className = 'slide';
-                // Calculate position 
+
                 let diff = (i - currentIndex + totalSlides) % totalSlides;
 
                 if (diff === 0) slide.classList.add('active');
@@ -88,25 +89,23 @@ document.addEventListener("DOMContentLoaded", () => {
             });
         }
 
-        // Arrow Controls
-        nextBtn.addEventListener('click', () => {
+        nextBtn.onclick = () => {
             currentIndex = (currentIndex + 1) % totalSlides;
             updateSlides();
-        });
+        };
 
-        prevBtn.addEventListener('click', () => {
+        prevBtn.onclick = () => {
             currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
             updateSlides();
-        });
+        };
 
-        //Jump to slide when clicked
         slides.forEach((slide, index) => {
-            slide.addEventListener('click', () => {
+            slide.onclick = () => {
                 if (slide.classList.contains('prev') || slide.classList.contains('next')) {
                     currentIndex = index;
                     updateSlides();
                 }
-            });
+            };
         });
 
         updateSlides();
