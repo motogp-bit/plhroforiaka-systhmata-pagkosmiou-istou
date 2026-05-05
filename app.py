@@ -15,11 +15,14 @@ mongo = PyMongo(app)
 def search_items():
     name_query = request.args.get('name', '')
     if name_query.strip() == '':
-        # Αν είναι κενό string, επιστρέφει όλα τα αντικείμενα και ταξινομεί με βάση την φθίνουσα τιμή
+        # Αν η αναζήτηση είναι κενή, φέρε τα πάντα ταξινομημένα από το πιο ακριβό
         cursor = mongo.db.items.find().sort("price", -1)
     else:
+        #σπάμε και ραβουμε ξανα τις λεξεις σε παρενθεση για την αναζητηση
+        words = name_query.split()
+        strict_query = " ".join([f'"{word}"' for word in words])
         # Αναζήτηση με βάση το όνομα και ταξινομεί με βάση την φθίνουσα τιμή
-        cursor = mongo.db.items.find({"$text": {"$search": name_query}}).sort("price", -1)
+        cursor = mongo.db.items.find({"$text": {"$search": strict_query}}, {"score": {"$meta": "textScore"}}).sort([("score", {"$meta": "textScore"})])
     items = []
     for doc in cursor:
         doc['_id'] = str(doc['_id'])
@@ -30,7 +33,6 @@ def search_items():
 # Likes
 @app.route('/like', methods=['POST'])
 def like_item():
-    # Περιμένει JSON στο body του request (πρέπει το "Content-Type" να είναι "application/json")
     data = request.get_json()
     if not data or 'id' not in data:
         return jsonify({"error": "Λείπει το id"}), 400  
