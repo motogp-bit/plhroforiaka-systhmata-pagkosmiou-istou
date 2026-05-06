@@ -15,7 +15,7 @@ def seed_database():
             {"name": "Διακοσμητικά Γραφείου Hallowen", "image": "item2.jpg", "likes": 42, "price": 5.00, "description": "Χειροποίητες μινιατούρες γραφείου."},
             {"name": "Μίνι Κιθάρα", "image": "item3.jpg", "likes": 110, "price": 18.50, "description": "Με χορδές από πετονιά."},
             {"name": "Custom keyboard keys", "image": "item4.jpg", "likes": 27, "price": 20.00, "description": "Ενσωματωμένες φιγούρες σε πλαστική θήκη πλήκτρων."},
-            {"name": "Μινιατούρα Γραμμόφωνο", "image": "item5.jpg", "likes": 88, "price": 4.50, "description": "Χειροποίητο με απίστευτη λεπτομέρεια."},
+            {"name": "Μινιατούρα Γραμμόφωνο", "image": "item5.jpg", "likes": 90, "price": 4.50, "description": "Χειροποίητο με απίστευτη λεπτομέρεια."},
             {"name": "Σκαλιστή Ξύλινη Πάπια", "image": "item6.jpg", "likes": 55, "price": 12.00, "description": "Σκαλιστή από ξύλο βελανιδίας"},
             {"name": "Μικροσκοπική Γλάστρα με Κάκτο", "image": "item7.jpg", "likes": 105, "price": 6.00, "description": "Αληθινός μικροσκοπικός κάκτος."},
             {"name": "Μίνι Καρέκλα Σκηνοθέτη", "image": "item8.jpg", "likes": 22, "price": 9.90, "description": "Σετ ρεαλιστικών μινιατουρων."},

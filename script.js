@@ -1,3 +1,50 @@
+// 3D Coverflow Slideshow
+function initSlideshow() {
+    const slides = document.querySelectorAll('#popular-slideshow .slide');
+    const prevBtn = document.querySelector('.prev-btn');
+    const nextBtn = document.querySelector('.next-btn');
+
+    if (slides.length === 0) return;
+
+    let currentIndex = 0;
+    const totalSlides = slides.length;
+
+    function updateSlides() {
+        slides.forEach((slide, i) => {
+            slide.className = 'slide';
+
+            let diff = (i - currentIndex + totalSlides) % totalSlides;
+
+            if (diff === 0) slide.classList.add('active');
+            else if (diff === 1) slide.classList.add('next');
+            else if (diff === 2) slide.classList.add('next-far');
+            else if (diff === totalSlides - 2) slide.classList.add('prev-far');
+            else if (diff === totalSlides - 1) slide.classList.add('prev');
+        });
+    }
+
+    nextBtn.onclick = () => {
+        currentIndex = (currentIndex + 1) % totalSlides;
+        updateSlides();
+    };
+
+    prevBtn.onclick = () => {
+        currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+        updateSlides();
+    };
+
+    slides.forEach((slide, index) => {
+        slide.onclick = () => {
+            if (slide.classList.contains('prev') || slide.classList.contains('next')) {
+                currentIndex = index;
+                updateSlides();
+            }
+        };
+    });
+
+    updateSlides();
+}
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // Like Button Logic
@@ -63,51 +110,4 @@ document.addEventListener("DOMContentLoaded", () => {
         type();
     }
 
-
-    // 3D Coverflow Slideshow
-    function initSlideshow() {
-        const slides = document.querySelectorAll('#popular-slideshow .slide');
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-
-        if (slides.length === 0) return;
-
-        let currentIndex = 0;
-        const totalSlides = slides.length;
-
-        function updateSlides() {
-            slides.forEach((slide, i) => {
-                slide.className = 'slide';
-
-                let diff = (i - currentIndex + totalSlides) % totalSlides;
-
-                if (diff === 0) slide.classList.add('active');
-                else if (diff === 1) slide.classList.add('next');
-                else if (diff === 2) slide.classList.add('next-far');
-                else if (diff === totalSlides - 2) slide.classList.add('prev-far');
-                else if (diff === totalSlides - 1) slide.classList.add('prev');
-            });
-        }
-
-        nextBtn.onclick = () => {
-            currentIndex = (currentIndex + 1) % totalSlides;
-            updateSlides();
-        };
-
-        prevBtn.onclick = () => {
-            currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
-            updateSlides();
-        };
-
-        slides.forEach((slide, index) => {
-            slide.onclick = () => {
-                if (slide.classList.contains('prev') || slide.classList.contains('next')) {
-                    currentIndex = index;
-                    updateSlides();
-                }
-            };
-        });
-
-        updateSlides();
-    }
 });
