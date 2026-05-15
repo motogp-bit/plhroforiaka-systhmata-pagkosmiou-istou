@@ -6,6 +6,13 @@ body {
     background-color: #e6e4fd;
     color: #444;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+main {
+    flex: 1;
 }
 
 /* Header & Nav */
